@@ -26,22 +26,35 @@ function App() {
       setResult(sum);
       setNumber1(sum);
       setSave([...Save, sum]);
+      if (Save[Save.length - i + 1]) {
+        setSave([...Save.slice(0, Save.length - i + 1), sum]);
+        console.log("슬라이스");
+        i = 1;
+      }
+      console.log(Save);
     } else {
       let sub = Number(Number1) - Number(Number2);
       setResult(sub);
       setNumber1(sub);
       setSave([...Save, sub]);
+      if (Save[Save.length - i + 1]) {
+        setSave([...Save.slice(0, Save.length - i + 1), sub]);
+        console.log("슬라이스");
+        i = 1;
+      }
     }
   };
 
   const onPreHandler = function () {
-    console.log(Save.length);
-    console.log(Save);
     setResult(Save[Save.length - ++i]);
+    setResult(Save[Save.length - i]);
+    setNumber1(Save[Save.length - i]);
   };
 
   const onNextHandler = function () {
     setResult(Save[Save.length - --i]);
+    setResult(Save[Save.length - i]);
+    setNumber1(Save[Save.length - i]);
   };
 
   return (
@@ -69,7 +82,7 @@ function App() {
       <button onClick={onCalHandler}>계산</button>
       <br />
       <br />
-      {Save.length >= 1 ? (
+      {Save.length - i !== 0 ? (
         <button id="pre" onClick={onPreHandler}>
           이전
         </button>
@@ -82,9 +95,16 @@ function App() {
       {/* <button id="next" disabled="disabled">
         다음
       </button> */}
-      <button id="next" onClick={onNextHandler}>
-        다음
-      </button>
+
+      {Save.length <= 2 || Save.indexOf(Number(Result)) === Save.length - 1 ? (
+        <button id="next" disabled="disabled">
+          다음
+        </button>
+      ) : (
+        <button id="next" onClick={onNextHandler}>
+          다음
+        </button>
+      )}
     </div>
   );
 }
