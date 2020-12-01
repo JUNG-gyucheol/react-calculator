@@ -91,11 +91,6 @@ function App() {
           이전
         </button>
       )}
-
-      {/* <button id="next" disabled="disabled">
-        다음
-      </button> */}
-
       {Save.length <= 2 || Save.indexOf(Number(Result)) === Save.length - 1 ? (
         <button id="next" disabled="disabled">
           다음
